@@ -1,0 +1,159 @@
+{{ header }}
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+          {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<div class='section'>
+  <div id="product-search" class="container">
+
+    <div class="row">{{ column_left }}
+      {% if column_left and column_right %}
+      {% set class = 'col-sm-6' %}
+      {% elseif column_left or column_right %}
+      {% set class = 'col-sm-9' %}
+      {% else %}
+      {% set class = 'col-sm-12' %}
+      {% endif %}
+      <div id="content" class="{{ class }}">
+        <h2>{{ heading_title }}</h2>
+        
+        {% if products %}
+    <!-- STORE -->
+    <div id="store" class="col-md-9">
+      <!-- store top filter -->
+      <div class="store-filter clearfix">
+        <div class="store-sort">
+          <label>
+            {{ text_sort }}
+            <select class="input-select" onchange="location = this.value;" id="input-sort">
+              {% for sorts in sorts %}
+              {% if sorts.value == '%s-%s'|format(sort,order) %}
+              <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
+              {% else %}
+              <option value="{{ sorts.href }}">{{ sorts.text }}</option>
+              {% endif %}
+              {% endfor %}
+            </select>
+          </label>
+
+          <label>
+            Show:
+            <select class="input-select" id="input-limit" onchange="location = this.value;">
+              {% for limits in limits %}
+              {% if limits.value == limit %}
+              <option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>
+              {% else %}
+              <option value="{{ limits.href }}">{{ limits.text }}</option>
+              {% endif %}
+              {% endfor %}
+            </select>
+          </label>
+        </div>
+        <ul class="store-grid">
+          <li class="active" id='grid-view' title="{{ button_grid }}"><i class="fa fa-th"></i></li>
+          <li id='list-view' title="{{ button_list }}"><i class="fa fa-th-list"></i></li>
+        </ul>
+      </div>
+      <!-- /store top filter -->
+
+      <!-- store products -->
+      <div class="row">
+
+        {% for product in products %}
+
+        <!-- product -->
+        <div class="product-list col-md-4 col-xs-6 product-grid">
+          <div class="product">
+            <div class="product-img">
+              <img src="{{ product.thumb }}" alt="{{ product.name }}">
+              <div class="product-label">
+              </div>
+            </div>
+            <!-- /product-img -->
+            <div class="product-body">
+              <h3 class="product-name"><a href="{{ product.href }}">{{ product.name }}</a></h3>
+
+              {% if product.price%}
+
+              {% if not product.special %}
+              <h4 class="product-price">{{ product.price }}</h4>
+              {% else %}
+              <h4 class="product-price">{{ product.special }} <del class="product-old-price">{{ product.price }}</del></h4>
+              {% endif %}
+
+              {% endif %}
+
+              {% if product.rating %}
+              <div class="product-rating">
+                {% for i in 1..5 %}
+                {% if product.rating<i %} 
+                <i class="fa fa-star"></i>
+                {% else %}
+                 <i class="fa fa-star-o"></i>
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+              <!-- /product-rating -->
+              <div class="product-btns">
+                <input type='hidden' value='{{ product.product_id }}' class='product-id' />
+                <button class="add-to-wishlist" onclick="wishlist.add('{{ product.product_id }}')">
+                  <i class="fa fa-heart-o"></i>
+                  <span class="tooltipp">{{ button_wishlist }}</span>
+                </button>
+                <button class="add-to-compare" onclick="compare.add('{{ product.product_id }}')">
+                  <i class="fa fa-exchange"></i>
+                  <span class="tooltipp">{{ button_compare }}</span>
+                </button>
+              </div>
+              <!-- /product-btns -->
+            </div>
+            <!-- /product-body -->
+            <input type='hidden' value='1' class='input-quantity' />
+            <div class="add-to-cart">
+              <button class="add-to-cart-btn" type="button" data-product-id="{{ product.product_id }}">
+                <i class="fa fa-shopping-cart"></i>
+                {{ button_cart }}
+              </button>
+            </div>
+            <!-- /add-to-cart -->
+          </div>
+          <div class="clearfix visible-sm visible-xs"></div>
+        </div>
+        <!-- /product -->
+        {% endfor %}
+      </div>
+      <!-- /store products -->
+
+      <!-- store bottom filter -->
+      <div class="store-filter clearfix">
+        <span class="store-qty">{{ results }}</span>
+        {{ pagination }}
+      </div>
+      <!-- /store bottom filter -->
+    </div>
+    <!-- /STORE -->
+    {% endif %}
+
+
+        {{ content_bottom }}
+      </div>
+      {{ column_right }}</div>
+  </div>
+</div>
+{{ footer }}

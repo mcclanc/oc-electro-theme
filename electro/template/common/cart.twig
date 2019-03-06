@@ -1,0 +1,53 @@
+<div class="cart-dropdown" id='cart'>
+	<ul>
+		<li>
+			<div class="cart-list">
+				{% set products_amount=0 %}
+				{% for product in products %}
+				<div class="product-widget" data-product-id=" {{ product.cart_id }}">
+					<div class="product-img">
+						{% if product.thumb %}
+						<img src="{{ product.thumb }}" alt="{{ product.name }}">
+						{% endif %}
+					</div>
+					<div class="product-body">
+						<h3 class="product-name"><a href="{{ product.href }}">{{ product.name }}</a></h3>
+						<h4 class="product-price"><span class="qty">{{ product.quantity }}x</span>{{ product.price }}</h4>
+					</div>
+					<button class="delete" onclick="cart.remove({{ product.cart_id }})">
+						<i class="fa fa-close"></i>
+					</button>
+				</div>
+				{% set products_amount=products_amount + product.quantity %}
+				{% endfor %}
+				<input type='hidden' id='products-amount' value='{{ products_amount }}' />
+
+				{% if vouchers %}
+				{% for voucher in vouchers %}
+				<div class="product-widget">
+					<div class="product-img">
+						<img src="{{ product.thumb }}" alt="{{ product.name }}">
+					</div>
+					<div class="product-body">
+						<h3 class="product-name">{{ voucher.description }}</h3>
+						<h4 class="product-price"><span class="qty">{{ voucher.amount }}</span></h4>
+					</div>
+					<button onclick="voucher.remove('{{ voucher.key }}');" class="delete"><i class="fa fa-close"></i></button>
+				</div>
+
+				{% endfor %}
+				{% endif %}
+			</div>
+			<div class="cart-summary">
+				{% for total in totals %}
+				<small>{{ total.title }}</small>
+				<h5>{{ total.text }}</h5>
+				{% endfor %}
+			</div>
+			<div class="cart-btns">
+				<a href="{{ cart }}">View Cart</a>
+				<a href="{{ checkout }}">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</li>
+	</ul>
+</div>

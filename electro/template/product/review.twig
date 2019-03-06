@@ -1,0 +1,28 @@
+<div id="reviews">
+	<ul class="reviews">
+
+		{% if reviews %}
+		{% for review in reviews %}
+		<li>
+			<div class="review-heading">
+				<h5 class="name">{{ review.author }}</h5>
+				<p class="date">{{ review.date_added }}</p>
+				<div class="review-rating">
+					{% for i in 1..5 %}
+					{% if review.rating >= i %}
+					<i class="fa fa-star"></i>
+					{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="review-body">
+				<p>
+					{{ review.text }}
+				</p>
+			</div>
+		</li>
+		{% endfor %}
+		<div class="text-right">{{ pagination }}</div>
+		{% else %}
+		<p>{{ text_no_reviews }}</p>
+		{% endif %}

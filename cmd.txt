@@ -1,0 +1,1 @@
+update oc_setting set value = 'electro' where `key` = 'theme_default_directory';

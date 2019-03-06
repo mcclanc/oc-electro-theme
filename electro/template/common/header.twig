@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+
+<head>
+{% set current_url = '' %}
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>{{ title }}</title>
+	<base href='{{ base }}'>
+	{% if description %}
+	<meta name="description" content="{{ description }}" />
+	{% endif %}
+	{% if keywords %}
+	<meta name="keywords" content="{{ keywords }}" />
+	{% endif %}
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="catalog/view/theme/electro/stylesheet/bootstrap.min.css" />
+
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="catalog/view/theme/electro/stylesheet/slick.css" />
+	<link type="text/css" rel="stylesheet" href="catalog/view/theme/electro/stylesheet/slick-theme.css" />
+
+	<!-- nouislider -->
+	<link type="text/css" rel="stylesheet" href="catalog/view/theme/electro/stylesheet/nouislider.min.css" />
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="catalog/view/theme/electro/stylesheet/font-awesome.min.css">
+
+	<!-- Custom stylesheet -->
+	<link type="text/css" rel="stylesheet" href="catalog/view/theme/electro/stylesheet/styles.css" />
+
+
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	<!-- jQuery Plugins -->
+	<script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js" ></script>
+	<script src="catalog/view/theme/electro/js/bootstrap.min.js"></script>
+	<script src="catalog/view/theme/electro/js/slick.min.js"></script>
+	<script src="catalog/view/theme/electro/js/nouislider.min.js"></script>
+	<script src="catalog/view/theme/electro/js/jquery.zoom.min.js"></script>
+
+	{% for style in styles %}
+	<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+	{% endfor %}
+	{% for script in scripts %}
+	<script src="{{ script }}" ></script>
+	{% endfor %}
+	{% for link in links %}
+	<link href="{{ link.href }}" rel="{{ link.rel }}" />
+		{% if link.rel == 'canonical' %}
+			{% set current_url = link.href %}
+		{% endif %}
+	{% endfor %}
+
+
+	{% for analytic in analytics %}
+	{{ analytic }}
+	{% endfor %}
+
+	<script src="catalog/view/javascript/common.js" ></script>
+	<meta name='electro' content='{{ current_url }}'>
+</head>
+<body>
+
+	<!-- HEADER -->
+	<header>
+		<!-- TOP HEADER -->
+		<div id="top-header">
+			<div class="container">
+				<ul class="header-links pull-left">
+					<li><a href="tel:{{ telephone }}"><i class="fa fa-phone"></i> {{ telephone }}</a></li>
+				</ul>
+				<ul class="header-links pull-right">
+					<li>{{ currency }}</li>
+					<li>{{ language }}</li>
+					<li><a href="{{ account }}"><i class="fa fa-user-o"></i> {{ text_account }}</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- /TOP HEADER -->
+
+		<!-- MAIN HEADER -->
+		<div id="header">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- LOGO -->
+					<div class="col-md-3">
+						<div class="header-logo">
+							{% if logo %}
+							<a href="{{ home }}" class="logo">
+								<img src="{{ logo }}" alt="{{ name }}">
+							</a>
+							{% else %}
+							<h1><a href="{{ home }}">{{ name }}</a></h1>
+							{% endif %}
+						</div>
+					</div>
+					<!-- /LOGO -->
+
+					{{ search }}
+
+					<!-- ACCOUNT -->
+					<div class="col-md-3 clearfix">
+						<div class="header-ctn">
+							<!-- Wishlist -->
+							<div id='wishlist-total'>
+								<a href="{{ wishlist }}">
+									<i class="fa fa-heart-o"></i>
+									<span>{{ text_wishlist }}</span>
+								</a>
+							</div>
+							<!-- /Wishlist -->
+
+							<!-- Cart -->
+							<div class="dropdown" id='cart-dropdown'>
+								<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href='{{ shopping_cart }}'>
+									<i class="fa fa-shopping-cart"></i>
+									<span>{{ text_shopping_cart }}</span>
+									{# <div class='qty'></div> #}
+								</a>
+								{{ cart }}
+							</div>
+							<!-- /Cart -->
+
+							<!-- Menu Toogle -->
+							<div class="menu-toggle">
+								<a href="#">
+									<i class="fa fa-bars"></i>
+									<span>Menu</span>
+								</a>
+							</div>
+							<!-- /Menu Toogle -->
+						</div>
+					</div>
+					<!-- /ACCOUNT -->
+				</div>
+				<!-- row -->
+			</div>
+			<!-- container -->
+		</div>
+		<!-- /MAIN HEADER -->
+	</header>
+	<!-- /HEADER -->
+	{{ menu }}

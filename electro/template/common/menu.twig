@@ -1,0 +1,30 @@
+{% if categories %}
+<!-- NAVIGATION -->
+<nav id="navigation">
+	<!-- container -->
+	<div class="container">
+		<!-- responsive-nav -->
+		<div id="responsive-nav">
+			<!-- NAV -->
+			<ul class="main-nav nav navbar-nav">
+				<li  id='nav_home' data-id="home">
+					<a href="/">
+						{{ text_home }}
+					</a>
+				</li>
+				{% for category in categories %}
+				<li data-id="{{ category.name }}">
+					<a href="{{ category.href }}">
+						{{ category.name }}
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+			<!-- /NAV -->
+		</div>
+		<!-- /responsive-nav -->
+	</div>
+	<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+{% endif %}
